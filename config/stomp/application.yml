@@ -1,0 +1,17 @@
+spring:
+  rabbitmq:
+    host: mls-amqp
+    username: mls-rabbitmq-user
+    password: mls-rabbitmq-pass
+
+application:
+  broker:
+    host: mls-amqp
+    username: mls-rabbitmq-user
+    password: mls-rabbitmq-pass
+
+logging:
+  config: /config/log-docker.xml
+  level:
+    root: warn
+    at.wrk.fmd.mls: info
