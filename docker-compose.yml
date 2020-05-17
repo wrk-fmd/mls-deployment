@@ -62,10 +62,6 @@ services:
 
   mls-amqp:
     image: wrkfmdit/mls-amqp:${MLS_TAG:-latest}
-    ports:
-      - 5672:5672
-      - 15672:15672
-      - 61613:61613
     environment:
       RABBITMQ_DEFAULT_USER: mls-rabbitmq-user
       RABBITMQ_DEFAULT_PASS: mls-rabbitmq-pass
@@ -76,8 +72,6 @@ services:
       - POSTGRES_USER=mls
       - POSTGRES_PASSWORD=mls-root-password
       - POSTGRES_DATABASES=mls-coceso:mls-coceso-password,mls-auth:mls-auth-password
-    ports:
-      - 5432:5432
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
