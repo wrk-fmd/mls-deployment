@@ -23,6 +23,10 @@ application:
   auth:
     verification:
       signing-key: file:/config/dev.pub
+  broker:
+    host: mls-amqp
+    username: mls-rabbitmq-user
+    password: mls-rabbitmq-pass
   messages:
     templates:
       alarm: |

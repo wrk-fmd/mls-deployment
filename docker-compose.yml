@@ -20,17 +20,6 @@ services:
         source: ${MLS_LOG:-./log}
         target: /log
 
-  mls-stomp:
-    image: wrkfmdit/mls-stomp:${MLS_TAG:-latest}
-    volumes:
-      - type: bind
-        source: ${MLS_CONFIG:-./config}/stomp
-        target: /config
-        read_only: true
-      - type: bind
-        source: ${MLS_LOG:-./log}
-        target: /log
-
   mls-auth:
     image: wrkfmdit/mls-auth:${MLS_TAG:-latest}
     volumes:
