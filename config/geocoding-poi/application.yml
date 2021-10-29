@@ -1,0 +1,20 @@
+spring:
+  rabbitmq:
+    host: mls-amqp
+    username: mls-rabbitmq-user
+    password: mls-rabbitmq-pass
+
+application:
+  geocoder:
+    name: poi
+    priority: 1
+  poi:
+    sources:
+      '[file:/config/pois/ehs.json]': EHS
+      '[file:/config/pois/hospitals.json]':
+      '[file:/config/pois/wrk.json]':
+
+logging:
+  config: /config/log-docker.xml
+  level:
+    root: warn

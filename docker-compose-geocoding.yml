@@ -1,0 +1,60 @@
+version: '3.7'
+
+services:
+  mls-geocoding-poi:
+    image: wrkfmdit/geocoding-poi:${MLS_GEOCODING_POI_TAG:-latest}
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: bind
+        source: ${MLS_GEOCODING_POI_CONFIG:-./config/geocoding-poi}
+        target: /config
+        read_only: true
+      - type: bind
+        source: ${MLS_LOG:-./log}
+        target: /log
+
+  mls-geocoding-vienna:
+    image: wrkfmdit/geocoding-vienna:${MLS_GEOCODING_VIENNA_TAG:-latest}
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: bind
+        source: ${MLS_GEOCODING_VIENNA_CONFIG:-./config/geocoding-vienna}
+        target: /config
+        read_only: true
+      - type: bind
+        source: ${MLS_LOG:-./log}
+        target: /log
+
+  mls-geocoding-gmaps:
+    image: wrkfmdit/geocoding-gmaps:${MLS_GEOCODING_GMAPS_TAG:-latest}
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: bind
+        source: ${MLS_GEOCODING_GMAPS_CONFIG:-./config/geocoding-gmaps}
+        target: /config
+        read_only: true
+      - type: bind
+        source: ${MLS_LOG:-./log}
+        target: /log
+
+  mls-geocoding-intersection:
+    image: wrkfmdit/geocoding-gmaps:${MLS_GEOCODING_INTERSECTION_TAG:-latest}
+    environment:
+      SPRING_PROFILES_ACTIVE: intersection
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: bind
+        source: ${MLS_GEOCODING_INTERSECTION_CONFIG:-./config/geocoding-gmaps}
+        target: /config
+        read_only: true
+      - type: bind
+        source: ${MLS_LOG:-./log}
+        target: /log
+
+networks:
+  default:
+    name: mls-network

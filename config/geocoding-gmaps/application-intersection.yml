@@ -1,0 +1,8 @@
+# This overrides some properties to switch to the intersection geocoder
+
+application:
+  geocoder:
+    name: gmaps-intersection
+    priority: 2
+  gmaps:
+    type: intersection

@@ -7,7 +7,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    open-in-view: false
+    open-in-view: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -18,11 +18,11 @@ spring:
 application:
   auth:
     signing:
-      signing-key: file:/config/dev.key
+      signing-key: file:/config/keys/dev.key
       renewal-validity: 10080
       request-validity: 5
     verification:
-      signing-key: file:/config/dev.pub
+      signing-key: file:/config/keys/dev.pub
   users:
     admin: password
 
@@ -30,4 +30,3 @@ logging:
   config: /config/log-docker.xml
   level:
     root: warn
-    at.wrk.fmd.mls.auth: info

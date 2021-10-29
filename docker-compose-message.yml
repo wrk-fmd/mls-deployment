@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+  mls-message-fleetsync:
+    image: wrkfmdit/mls-message-fleetsync:${MLS_MESSAGE_FLEETSYNC_TAG:-latest}
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: bind
+        source: ${MLS_MESSAGE_FLEETSYNC_CONFIG:-./config/message-fleetsync}
+        target: /config
+        read_only: true
+      - type: bind
+        source: ${MLS_LOG:-./log}
+        target: /log
+      - type: bind
+        source: /dev
+        target: /dev
+        read_only: true
+
+  mls-message-sms:
+    image: wrkfmdit/mls-message-sms:${MLS_MESSAGE_SMS_TAG:-latest}
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: bind
+        source: ${MLS_MESSAGE_SMS_CONFIG:-./config/message-sms}
+        target: /config
+        read_only: true
+      - type: bind
+        source: ${MLS_LOG:-./log}
+        target: /log
+
+  mls-message-tetra:
+    image: wrkfmdit/mls-message-tetra:${MLS_MESSAGE_TETRA_TAG:-latest}
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: bind
+        source: ${MLS_MESSAGE_TETRA_CONFIG:-./config/message-tetra}
+        target: /config
+        read_only: true
+      - type: bind
+        source: ${MLS_LOG:-./log}
+        target: /log
+
+  mls-message-mock-gateway:
+    image: wrkfmdit/mls-message-mock-gateway:${MLS_MESSAGE_MOCK_GATEWAY_TAG:-latest}
+
+networks:
+  default:
+    name: mls-network

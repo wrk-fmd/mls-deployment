@@ -1,0 +1,17 @@
+spring:
+  config:
+    import: keys/gmaps-key.yml
+  rabbitmq:
+    host: mls-amqp
+    username: mls-rabbitmq-user
+    password: mls-rabbitmq-pass
+
+application:
+  geocoder:
+    name: gmaps
+    priority: 3
+
+logging:
+  config: /config/log-docker.xml
+  level:
+    root: warn

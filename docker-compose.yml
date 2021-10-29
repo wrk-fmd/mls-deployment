@@ -1,19 +1,21 @@
 version: '3.7'
 
-# This docker-compose file is used for starting all MLS services.
+# This docker-compose file is used for starting all core MLS services.
 # It does not build anything, but uses locally built images or pulls them from Docker Hub.
-# By default the image tagged as 'latest' is pulled. This can be overridden by setting $MLS_TAG
+# By default, the image tagged as 'latest' is pulled. This can be overridden by setting $MLS_TAG
 # Configuration is taken from ./config which can be overridden by setting $MLS_CONFIG
 # Log files are written to ./log which can be overridden by setting $MLS_LOG
 
 services:
   mls-gateway:
-    image: wrkfmdit/mls-gateway:${MLS_TAG:-latest}
+    image: wrkfmdit/mls-gateway:${MLS_GATEWAY_TAG:-latest}
     ports:
-      - 8090:8080
+      - "8090:8080"
+    tmpfs:
+      - /tmp
     volumes:
       - type: bind
-        source: ${MLS_CONFIG:-./config}/gateway
+        source: ${MLS_GATEWAY_CONFIG:-./config/gateway}
         target: /config
         read_only: true
       - type: bind
@@ -21,10 +23,12 @@ services:
         target: /log
 
   mls-auth:
-    image: wrkfmdit/mls-auth:${MLS_TAG:-latest}
+    image: wrkfmdit/mls-auth:${MLS_AUTH_TAG:-latest}
+    tmpfs:
+      - /tmp
     volumes:
       - type: bind
-        source: ${MLS_CONFIG:-./config}/auth
+        source: ${MLS_AUTH_CONFIG:-./config/auth}
         target: /config
         read_only: true
       - type: bind
@@ -32,10 +36,12 @@ services:
         target: /log
 
   mls-coceso:
-    image: wrkfmdit/mls-coceso:${MLS_TAG:-latest}
+    image: wrkfmdit/mls-coceso:${MLS_COCESO_TAG:-latest}
+    tmpfs:
+      - /tmp
     volumes:
       - type: bind
-        source: ${MLS_CONFIG:-./config}/coceso
+        source: ${MLS_COCESO_CONFIG:-./config/coceso}
         target: /config
         read_only: true
       - type: bind
@@ -43,20 +49,20 @@ services:
         target: /log
 
   mls-frontend:
-    image: wrkfmdit/mls-frontend:${MLS_TAG:-latest}
+    image: wrkfmdit/mls-frontend:${MLS_FRONTEND_TAG:-latest}
     links:
       - mls-gateway
     ports:
-      - 8089:80
+      - "8089:80"
 
   mls-amqp:
-    image: wrkfmdit/mls-amqp:${MLS_TAG:-latest}
+    image: wrkfmdit/mls-amqp:${MLS_AMQP_TAG:-latest}
     environment:
       RABBITMQ_DEFAULT_USER: mls-rabbitmq-user
       RABBITMQ_DEFAULT_PASS: mls-rabbitmq-pass
 
   mls-db:
-    image: wrkfmdit/mls-db:${MLS_TAG:-latest}
+    image: wrkfmdit/mls-db:${MLS_DB_TAG:-latest}
     environment:
       - POSTGRES_USER=mls
       - POSTGRES_PASSWORD=mls-root-password

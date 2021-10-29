@@ -1,0 +1,15 @@
+spring:
+  rabbitmq:
+    host: mls-amqp
+    username: mls-rabbitmq-user
+    password: mls-rabbitmq-pass
+
+application:
+  geocoder:
+    name: vienna
+    priority: 2
+
+logging:
+  config: /config/log-docker.xml
+  level:
+    root: warn
