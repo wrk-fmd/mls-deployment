@@ -5,6 +5,13 @@ This repository contains docker-compose definitions and the configuration to dep
 As of now, many core features are already present, but the system is far from production ready, or even complete.
 It should go without saying that this **must not be used for production and/or with actual real-world data!**
 
+## Configuration Files
+
+Most service configuration can be used as-is.
+
+Running the Google Maps based geocoding services (i.e., `mls-geocoding-gmaps` and `mls-geocoding-intersection`) requires an API key.
+You need to copy the file `config/geocoding-gmaps/keys/gmaps-key-template.yml` to `gmaps-key.yml` and add your key there.
+
 ## Starting the Services
 
 There are three `docker-compose` files:
